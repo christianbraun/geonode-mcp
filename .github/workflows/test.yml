@@ -1,0 +1,18 @@
+# ABOUTTHIS: Runs the offline pytest suite on every push and pull request.
+# ABOUTTHIS: Mirrors the GitLab CI job this repo used before moving to GitHub.
+name: test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install --quiet -e ".[dev]"
+      - run: pytest -q

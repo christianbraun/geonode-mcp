@@ -1,0 +1,50 @@
+[project]
+name = "geonode-mcp"
+version = "0.1.0"
+description = "MCP server wrapping GeoNode's REST API v2"
+readme = "README.md"
+requires-python = ">=3.11"
+keywords = ["geonode", "mcp", "gis", "spatial-data-infrastructure", "llm"]
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [
+    { name = "Christian Braun" },
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: System Administrators",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: GIS",
+]
+dependencies = [
+    "fastmcp>=3.4.4,<4.0.0",
+    "httpx>=0.28.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.0",
+    "respx>=0.23.1",
+]
+
+[project.urls]
+Repository = "https://github.com/christianbraun/geonode-mcp"
+Documentation = "https://github.com/christianbraun/geonode-mcp/blob/main/docs/setup.md"
+
+[project.scripts]
+geonode-mcp-setup = "geonode_mcp.setup_cli:main"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+# tests import each other as `tests.conftest`, so the repo root must be importable
+pythonpath = ["."]
+
+[build-system]
+requires = ["setuptools>=77"]   # PEP 639 `license` / `license-files`
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
